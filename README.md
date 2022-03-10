@@ -1,7 +1,8 @@
-# Contributors
-# Sémiat Oyénikè OLAITAN
-# Augustin HIHEAGLO
-# Ivan APEDO
+# GLSIA-3
+Contributors
++ Sémiat Oyénikè OLAITAN
++ Augustin HIHEAGLO
++ Ivan APEDO
 
 School project with Spring Boot
 
