@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+</head>
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">TP Spring Boot</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav me-auto my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${#request.requestURI == '/' ? 'active':''}" th:href="@{/}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="product" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Produits
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="product">
+                            <li>
+                                <a  class="dropdown-item" th:classappend="${#request.requestURI == '/products' ? 'active':''}" th:href="@{/products}">
+                                    Liste des produits</a>
+                            </li>
+                            <li><a class="dropdown-item" th:classappend="${#request.requestURI == '/products/add' ? 'active':''}"  th:href="@{/products/add}">Ajouter un produit</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="category" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Catégorie
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="category">
+                            <li><a class="dropdown-item" th:classappend="${#request.requestURI == '/categories' ? 'active':''}" th:href="@{/categories}">Liste des categories</a></li>
+                            <li><a class="dropdown-item" th:classappend="${#request.requestURI == '/categories/add' ? 'active':''}"  th:href="@{/categories/add}">Ajouter une categorie</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success text-white" type="submit"><i class="bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

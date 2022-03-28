@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un produit</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+</head>
+<body>
+    <div th:replace="home :: navbar" />
+
+    <div class="container">
+        <div class="col-md-8 offset-md-2 mt-5">
+        <div class="card text-center">
+            <div class="card-header">
+                <h2>Formulaire de modification de produit</h2>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/products/update}" th:object="${aProduct}" method="post">
+                    <input type="hidden" th:field="*{id}" class="form-control" name="id" id="id">
+                    <input type="hidden" th:field="*{dateCreation}" name="dateCreation">
+                    <input type="hidden" th:field="*{qteStock}" name="qteStock">
+                    <div class="form-floating mb-3">
+                        <input type="text" th:field="*{libelle}" class="form-control" name="libelle" id="libelle">
+                        <label for="libelle">Nom</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" th:field="*{qteSeuil}" name="qteSeuil" id="qteSeuil" class="form-control">
+                        <label for="qteSeuil">Quantité seuil</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" th:field="*{prix}" name="prix" id="prix" class="form-control">
+                        <label for="prix">Prix</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select th:field="*{categoryId}" required name="categoryId" id="categoryId" class="form-control">
+                            <option th:each="category:${listCategory}" th:value="${category.id}"
+                                    th:text="${category.designation}"></option>
+                        </select>
+                        <label for="categoryId">Category</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <button type="reset" class="btn btn-light border">Annuler</button>
+                        <button type="submit" class="btn btn-success">Modifier</button>
+                    </div>
+                </form>
+                <p>
+                    <a th:href="@{/products}" class="text-end">Retour à la liste de produits</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
