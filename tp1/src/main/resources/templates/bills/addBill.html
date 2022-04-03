@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Ajouter une vente - Gestion vente</title>
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{../../css/sb-admin-2.min.css}" rel="stylesheet">
+
+
+
+</head>
+
+<body id="page-top">
+
+<th:block th:replace="fragments/nav :: navigation"></th:block>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h5 class="h5 mb-0 text-gray-800 text-bold">Nouvelle vente</h5>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4" th:text="'Facture ||' + ${customer.lastName} ">Facture</h1>
+            </div>
+            <form class="" th:action="@{/}" method="post">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="facture" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Désignation</th>
+                            <th>Quantité</th>
+                            <th>Prix vente</th>
+                            <th>Prix total</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="sale:${sales}">
+                            <td th:text="${sale.id}"></td>
+                            <td th:text="${sale.product.libelle}"></td>
+                            <td th:text="${sale.qty}"></td>
+                            <td th:text="${sale.salePrice}"></td>
+                            <td th:text="${sale.salePrice}*${sale.qty}"></td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-1 mr-4">
+                                        <button class="btn btn-circle btn-sm rounded-circle btn-success">
+                                            <a th:href="@{/sales/edit/{id}(id=${sale.id})}" style="color:white;">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2 ml-4">
+                                        <!--<button class="btn btn-circle btn-sm rounded-circle btn-danger mt-2">
+                                            <a th:href="@{/sales/delete/{id}(id=${sale.id})}" style="color:white;">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </button>-->
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    <button class="btn btn-success btn-user btn-block">Facturer</button>
+                </p>
+            </form>
+
+        </div>
+
+        <div class="col-lg-5">
+            <div class="px-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Ajouter à la facture</h1>
+                </div>
+                <form class="user" method="post">
+                    <input type="hidden" name="productId" th:value="${product.id}">
+
+                    <div class="form-group">
+                        <input type="text" readonly class="form-control btn-user btn-block" th:value="${product.libelle}">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="number" required class="form-control btn-user btn-block" placeholder="Quantité"
+                               name="qty" min="1">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control btn-user btn-block"  placeholder="Prix de vente"
+                                   name="salePrice" th:value="${product.prix}">
+                        </div>
+                    </div>
+                    <hr>
+                    <button class="btn btn-success btn-user btn-block">Ajouter</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Choisissez un produit</h1>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="products" width="100%" cellspacing="0" th:if="${#lists.size(produits) > 0}">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Désignation</th>
+                        <th>Prix Unitaire</th>
+                        <th>Quantité seuil</th>
+                        <th>Quantité en stock</th>
+                        <th>Date création</th>
+                        <th>Catégorie</th>
+                        <th>Catégorie</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="produit:${produits}" >
+                        <td th:text="${produit.id}"></td>
+                        <td th:text="${produit.libelle}"></td>
+                        <td th:text="${produit.prix}"></td>
+                        <td th:text="${produit.qteSeuil}"></td>
+                        <td th:text="${produit.qteStok}"></td>
+                        <td th:text="${produit.dateCreation}"></td>
+                        <td th:text="${produit.category.designation}"></td>
+                        <td>
+                            <form class="user" th:action="@{/bills/create}"
+                                  method="post" th:id="'form-'+${produit.id}">
+                                <input type="hidden" th:name="produit" th:value="${produit.id}">
+                                <input type="hidden" th:name="customer" th:value="${customer.id}">
+                                <button> hop </button>
+<!--                                <button th:onclick="|alert( '*{produit}')|"></button>-->
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+<th:block th:replace="fragments/nav :: footer"></th:block>
+
+
+</body>
+
+</html>

@@ -1,43 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Modifier une categorie</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
-</head>
-<body>
-    <div th:replace="home :: navbar" />
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
 
-    <div class="container">
-        <div class="col-md-8 offset-md-2 mt-5">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h2>Formulaire de modification d'une categorie</h2>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Ajouter une catégorie - Gestion vente</title>
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{../../css/sb-admin-2.min.css}" rel="stylesheet">
+
+
+
+</head>
+
+<body id="page-top">
+
+<th:block th:replace="fragments/nav :: navigation"></th:block>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h5 class="h5 mb-0 text-gray-800 text-bold">Modifier catégorie</h5>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <div class="col-lg-7">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Modifier une catégorie!</h1>
                 </div>
-                <div class="card-body">
-                    <form th:action="@{/categories/update}" th:object="${aCategory}" method="post">
-                        <input type="hidden" th:field="*{id}" class="form-control" name="id" id="id">
-                        <div class="form-floating mb-3">
-                            <input type="text" th:field="*{designation}" class="form-control" name="designation" id="designation">
-                            <label for="designation">designation</label>
+                <form class="user" th:action="@{/categories/edit}" th:object="${uneCategorie}" method="post">
+                    <input type="hidden" class="form-control" th:field="*{id}">
+                    <div class="form-group row">
+                        <div class="col-sm-12 mb-3 mb-sm-0">
+                            <input type="text" class="form-control btn-user btn-block"
+                                   placeholder="Libellé" th:field="*{designation}">
                         </div>
-                        <div class="form-floating mb-3">
-                            <button type="reset" class="btn btn-light border">Annuler</button>
-                            <button type="submit" class="btn btn-success">Modifier</button>
-                        </div>
-                    </form>
-                    <p>
-                        <a th:href="@{/categories}" class="text-end">Retour à la liste de categories</a>
-                    </p>
-                </div>
+                    </div>
+
+                    <hr>
+                    <button class="btn btn-success btn-user btn-block">Valider</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+<!-- /.container-fluid -->
 
 
+<th:block th:replace="fragments/nav :: footer"></th:block>
 
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>
