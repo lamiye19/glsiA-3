@@ -61,21 +61,24 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(sales) > 0}">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>#</th>
                         <th>Désignation</th>
                         <th>Prix unitaire</th>
                         <th>Quantité</th>
                         <th>Prix vente</th>
-                        <th>Actions</th>
+                        <th>Date</th>
+<!--                        <th>Actions</th>-->
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="sale:${sales}">
-                        <td th:text="${sale.id}"></td>
+                        <td th:text="${saleStat.index+1}"></td>
                         <td th:text="${sale.product.libelle}"></td>
                         <td th:text="${sale.product.prix}"></td>
                         <td th:text="${sale.qty}"></td>
                         <td th:text="${sale.salePrice}"></td>
+                        <td th:text="${sale.bill.createdAt}"></td>
+<!--
                         <td>
                             <div class="row">
                                 <div class="col-md-1 mr-4">
@@ -86,15 +89,16 @@
                                     </button>
                                 </div>
                                 <div class="col-md-2 ml-4">
-                                    <!--<button class="btn btn-circle btn-sm rounded-circle btn-danger mt-2">
+                                    &lt;!&ndash;<button class="btn btn-circle btn-sm rounded-circle btn-danger mt-2">
                                         <a th:href="@{/sales/delete/{id}(id=${sale.id})}" style="color:white;">
                                             <i class="fas fa-trash"></i>
                                         </a>
-                                    </button>-->
+                                    </button>&ndash;&gt;
 
                                 </div>
                             </div>
                         </td>
+-->
                     </tr>
                     </tbody>
                 </table>

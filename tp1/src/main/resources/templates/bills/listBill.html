@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Liste des ventes - Gestion vente</title>
+    <title>Liste des factures - Gestion vente</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -38,9 +38,9 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Total (ventes)</div>
+                            Total (factures)</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            <h6 class="m-0 font-weight-bold text-primary mb-4" th:text="${sales.size()}"></h6>
+                            <h6 class="m-0 font-weight-bold text-primary mb-4" th:text="${bills.size()}"></h6>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -54,40 +54,36 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary mb-4">Liste des ventes</h6>
+            <h6 class="m-0 font-weight-bold text-primary mb-4">Liste des factures</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(sales) > 0}">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(bills) > 0}">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Désignation</th>
-                        <th>Prix unitaire</th>
-                        <th>Quantité</th>
-                        <th>Prix vente</th>
+                        <th>#</th>
+                        <th>Client</th>
+                        <th>Date</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="sale:${sales}">
-                        <td th:text="${sale.id}"></td>
-                        <td th:text="${sale.product.libelle}"></td>
-                        <td th:text="${sale.product.prix}"></td>
-                        <td th:text="${sale.qty}"></td>
-                        <td th:text="${sale.salePrice}"></td>
+                    <tr th:each="bill:${bills}">
+                        <td th:text="${billStat.index+1}"></td>
+                        <td th:text="${bill.customer.firstName}+ ' ' +${bill.customer.lastName}"></td>
+                        <td th:text="${bill.createdAt}"></td>
                         <td>
                             <div class="row">
                                 <div class="col-md-1 mr-4">
                                     <button class="btn btn-circle btn-sm rounded-circle btn-success">
-                                        <a th:href="@{/sales/edit/{id}(id=${sale.id})}" style="color:white;">
-                                            <i class="fas fa-pen"></i>
+                                        <a th:href="@{/bills/view/{id}(id=${bill.id})}" style="color:white;">
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                     </button>
                                 </div>
                                 <div class="col-md-2 ml-4">
                                     <!--<button class="btn btn-circle btn-sm rounded-circle btn-danger mt-2">
-                                        <a th:href="@{/sales/delete/{id}(id=${sale.id})}" style="color:white;">
+                                        <a th:href="@{/bills/delete/{id}(id=${bill.id})}" style="color:white;">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </button>-->

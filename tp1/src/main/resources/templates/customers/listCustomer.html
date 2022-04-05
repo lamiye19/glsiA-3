@@ -61,7 +61,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(customers) > 0}">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>#</th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Téléphone</th>
@@ -73,7 +73,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="customer:${customers}">
-                        <td th:text="${customer.id}"></td>
+                        <td th:text="${customerStat.index+1}"></td>
                         <td th:text="${customer.lastName}"></td>
                         <td th:text="${customer.firstName}"></td>
                         <td th:text="${customer.phone}"></td>
@@ -97,7 +97,7 @@
                                 <div class="col-md-2 ml-4">
                                     <button class="btn btn-circle btn-sm rounded-circle btn-primary mt-2">
                                         <a th:href="@{/bills/create/{id}(id=${customer.id})}" style="color:white;">
-                                            <i class="fas fa-user"></i>
+                                            <i class="fas fa-fw fa-table"></i>
                                         </a>
                                     </button>
 

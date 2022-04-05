@@ -6,11 +6,13 @@ import com.glsia.tp1.models.Sale;
 import com.glsia.tp1.service.CustomerService;
 import com.glsia.tp1.service.BillService;
 import com.glsia.tp1.service.ProduitService;
+import com.glsia.tp1.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,10 +22,16 @@ public class BillController {
     private BillService billService;
 
     @Autowired
+    private SaleService saleService;
+
+    @Autowired
     private CustomerService customerService;
 
     @Autowired
     private ProduitService produitService;
+
+    List<Sale> sales = new ArrayList<>();
+
 
     @GetMapping("/all")
     public String afficherBill(Model model){
@@ -32,26 +40,58 @@ public class BillController {
     }
 
     @GetMapping("/create/{id}")
-    public String afficherFormulaire(@PathVariable("id") int id, Model model, Produit produit){
+    public String afficherFormulaire(@PathVariable("id") int id, Model model, Produit produit, Sale sale){
         model.addAttribute("customer", customerService.selectedCustomer(id));
         model.addAttribute("produits", produitService.showAllProduit());
         model.addAttribute("product", produit);
-        return "bills/addBill";
-    }
+        model.addAttribute("sale", sale);
+        if(sale.getProductId() != 0 && !sales.contains(sale)){
+            for (int i = 0; i < sales.size(); i++) {
+                if(sales.get(i).getProductId() == sale.getProductId()){
+                    model.addAttribute("sales", sales);
+                    model.addAttribute("msg", "Ce produit est dejà ajouté.");
+                    return "bills/addBill";
+                }
+            }
+            Produit produit1 = produitService.selectedProduit(sale.getProductId());
+            sale.setProduct(produit1);
+            if(produit1.getQteStok() - sale.getQty() < produit1.getQteSeuil()){
+                model.addAttribute("sales", sales);
+                model.addAttribute("msg", "Vous ne pouvez pas vendre qu delà de la quantité seuil.");
+                return "bills/addBill";
+            }
 
-    @PostMapping("/create")
-    public String editProduit(@RequestParam("produit") Integer produit, @RequestParam("customer") Integer id, Model model){
-        model.addAttribute("product", produitService.selectedProduit(produit));
-        model.addAttribute("customer", customerService.selectedCustomer(id));
-        model.addAttribute("produits", produitService.showAllProduit());
+            sales.add(sale);
+        }
+
+        model.addAttribute("msg", "");
+        model.addAttribute("sales", sales);
         return "bills/addBill";
-//        return "redirect:/bills/create/1";
     }
 
     @PostMapping("/save")
     public String save(Bill bill){
         billService.saveBill(bill);
+        for (int i = 0; i < sales.size(); i++) {
+            Sale sale = new Sale();
+            sale.setQty(sales.get(i).getQty());
+            sale.setProductId(sales.get(i).getProductId());
+            sale.setSalePrice(sales.get(i).getSalePrice());
+            sale.setBillId(bill.getId());
+            saleService.saveSale(sale);
+
+            produitService.updateQuantityProductAfterSale(sale.getProductId(), sale.getQty());
+        }
+        sales.clear();
         return "redirect:/bills/all";
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewBill(@PathVariable("id") int id, Model model){
+
+        model.addAttribute("sales", billService.selectedBill(id));
+        model.addAttribute("customer", customerService.showAllCustomer());
+        return "bills/editBill";
     }
 
     @GetMapping("/edit/{id}")
