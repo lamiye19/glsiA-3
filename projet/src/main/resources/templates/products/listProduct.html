@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Liste des produits - Gestion vente</title>
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{../../css/sb-admin-2.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link th:href="@{../../vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<th:block th:replace="fragments/nav :: navigation"></th:block>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total (produits)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <h6 class="m-0 font-weight-bold text-primary mb-4" th:text="${produits.size()}"></h6>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary mb-4">Liste des produits</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(produits) > 0}">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Désignation</th>
+                        <th>Prix</th>
+                        <th>Quantité seuil</th>
+                        <th>Quantité en stock</th>
+                        <th>Date création</th>
+                        <th>Catégorie</th>
+                        <th sec:authorize="hasRole('ADMIN')">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="produit : ${produits}">
+                        <td th:text="${produit.id}"></td>
+                        <td th:text="${produit.designation}"></td>
+                        <td th:text="${produit.prix}"></td>
+                        <td th:text="${produit.quantiteSeuil}"></td>
+                        <td th:text="${produit.quantiteStock}"></td>
+                        <td th:text="${produit.dateCreation}"></td>
+                        <td th:text="${produit.categorie.libelle}"></td>
+                        <td sec:authorize="hasRole('ADMIN')">
+                            <div class="row">
+                                <div class="col-md-1 mr-4">
+                                    <button class="btn btn-circle btn-sm rounded-circle btn-warning">
+                                        <a th:href="@{/products/edit/{id}(id=${produit.id})}" style="color:white;">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                                <div class="col-md-2 ml-4">
+                                    <button class="btn btn-circle btn-sm rounded-circle btn-danger mt-2">
+                                        <a th:href="@{/products/delete/{id}(id=${produit.id})}" style="color:white;">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2022</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<th:block th:replace="fragments/logoutModal :: logoutModal"></th:block>
+
+<th:block th:replace="fragments/profileModal :: profileModal"></th:block>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{../../vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{../../vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{../../vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{../../js/sb-admin-2.min.js}"></script>
+
+<!-- Page level plugins -->
+<script th:src="@{../../vendor/chart.js/Chart.min.js}"></script>
+
+<!-- Page level custom scripts -->
+<script th:src="@{../../js/demo/chart-area-demo.js}"></script>
+<script th:src="@{../../js/demo/chart-pie-demo.js}"></script>
+
+<!-- Page level custom scripts -->
+<script th:src="@{../../js/demo/chart-area-demo.js}"></script>
+<script th:src="@{../../js/demo/chart-pie-demo.js}"></script>
+
+<!-- Page level plugins -->
+<script th:src="@{../../vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{../../vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+<!-- Page level custom scripts -->
+<script th:src="@{../../js/demo/datatables-demo.js}"></script>
+
+</body>
+
+</html>
