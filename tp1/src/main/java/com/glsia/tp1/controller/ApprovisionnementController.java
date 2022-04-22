@@ -41,7 +41,7 @@ public class ApprovisionnementController {
         return "redirect:/products/all";
     }
 
-    @GetMapping("/edit/{id}")
+    /*@GetMapping("/edit/{id}")
     public String editApprovisionnement(@PathVariable("id") int id, Model model)
     {
         model.addAttribute("oneApprovisionnement", approvisionnementService.selectOneApprovisionnement(id));
@@ -61,7 +61,7 @@ public class ApprovisionnementController {
                 approvisionnement.getQuantite());
         return "redirect:/approvisionnement/index";
 
-    }
+    }*/
 
     @GetMapping("/delete/{id}")
     public String deleteApprovisionnement(@ModelAttribute("approvisionnement") Approvisionnement approvisionnement)

@@ -65,7 +65,6 @@
                         <th>Produit</th>
                         <th>quantité</th>
                         <th>Date d'approvisionnement</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -76,14 +75,14 @@
                         <td th:text="${approvisionnement.dateCreation}"></td>
                         <td>
                             <div class="row">
-                                <div class="col-md-1 mr-4">
+                                <!--<div class="col-md-1 mr-4">
                                     <button class="btn btn-circle btn-sm rounded-circle btn-warning">
                                         <a th:href="@{/approvisionnement/edit/{id}(id=${approvisionnement.id})}" style="color:white;">
 
                                             <i class="fas fa-pen"></i>
                                         </a>
                                     </button>
-                                </div>
+                                </div>-->
                                 <div class="col-md-2 mr-4">
                                     <button class="btn btn-circle btn-sm rounded-circle btn-danger">
                                         <a th:href="@{/approvisionnement/delete/{id}(id=${approvisionnement.id})}" style="color:white;">

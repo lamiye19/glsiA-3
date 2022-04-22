@@ -34,6 +34,10 @@ public class SaleService {
         return Sale;
     }
 
+    public List<Sale> selectedBillSales(int billId){
+        return saleRepository.findByBillId(billId);
+    }
+
     public void deleteSale(int id){
         saleRepository.deleteById(id);
     }

@@ -45,7 +45,11 @@ public class BillController {
         model.addAttribute("produits", produitService.showAllProduit());
         model.addAttribute("product", produit);
         model.addAttribute("sale", sale);
+        long cost = 0;
+
         if(sale.getProductId() != 0 && !sales.contains(sale)){
+            Produit produit1 = produitService.selectedProduit(sale.getProductId());
+            sale.setProduct(produit1);
             for (int i = 0; i < sales.size(); i++) {
                 if(sales.get(i).getProductId() == sale.getProductId()){
                     model.addAttribute("sales", sales);
@@ -53,30 +57,38 @@ public class BillController {
                     return "bills/addBill";
                 }
             }
-            Produit produit1 = produitService.selectedProduit(sale.getProductId());
-            sale.setProduct(produit1);
             if(produit1.getQteStok() - sale.getQty() < produit1.getQteSeuil()){
                 model.addAttribute("sales", sales);
-                model.addAttribute("msg", "Vous ne pouvez pas vendre qu delà de la quantité seuil.");
+                model.addAttribute("msg", "Vous ne pouvez pas vendre au delà de la quantité seuil.");
                 return "bills/addBill";
             }
 
             sales.add(sale);
+            for (int i = 0; i < sales.size(); i++) {
+                cost += sales.get(i).getSalePrice() * sales.get(i).getQty();
+            }
         }
 
         model.addAttribute("msg", "");
         model.addAttribute("sales", sales);
+        model.addAttribute("cost", cost);
         return "bills/addBill";
+    }
+
+    @PostMapping("/remove/{id}")
+    public String removeSale(@PathVariable("id") int id, int index){
+        sales.remove(index);
+        return "redirect:/bills/create/"+id;
     }
 
     @PostMapping("/save")
     public String save(Bill bill){
         billService.saveBill(bill);
-        for (int i = 0; i < sales.size(); i++) {
+        for (Sale value : sales) {
             Sale sale = new Sale();
-            sale.setQty(sales.get(i).getQty());
-            sale.setProductId(sales.get(i).getProductId());
-            sale.setSalePrice(sales.get(i).getSalePrice());
+            sale.setQty(value.getQty());
+            sale.setProductId(value.getProductId());
+            sale.setSalePrice(value.getSalePrice());
             sale.setBillId(bill.getId());
             saleService.saveSale(sale);
 
@@ -88,24 +100,32 @@ public class BillController {
 
     @GetMapping("/view/{id}")
     public String viewBill(@PathVariable("id") int id, Model model){
+        Bill bill = billService.selectedBill(id);
+        List<Sale> sales = saleService.selectedBillSales(id);
 
-        model.addAttribute("sales", billService.selectedBill(id));
-        model.addAttribute("customer", customerService.showAllCustomer());
-        return "bills/editBill";
+        long cost = 0;
+        for (int i = 0; i < sales.size(); i++) {
+            cost += sales.get(i).getSalePrice() * sales.get(i).getQty();
+        }
+
+        model.addAttribute("sales", sales);
+        model.addAttribute("cost", cost);
+        model.addAttribute("customer", bill.getCustomer());
+        return "/bills/viewBill";
     }
 
-    @GetMapping("/edit/{id}")
+    /*@GetMapping("/edit/{id}")
     public String formEditBill(@PathVariable("id") int id, Model model){
         model.addAttribute("bill", billService.selectedBill(id));
         model.addAttribute("customer", customerService.showAllCustomer());
-        return "bills/editBill";
+        return "viewBill";
     }
 
     @PostMapping("/edit")
     public String editBill(Bill bill){
         billService.saveBill(bill);
         return "redirect:/bills";
-    }
+    }*/
 
     @GetMapping("/delete/{id}")
     public String deleteBill(@PathVariable("id") int id, Model model){

@@ -67,7 +67,7 @@
                         <th>Quantité</th>
                         <th>Prix vente</th>
                         <th>Date</th>
-<!--                        <th>Actions</th>-->
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -78,27 +78,17 @@
                         <td th:text="${sale.qty}"></td>
                         <td th:text="${sale.salePrice}"></td>
                         <td th:text="${sale.bill.createdAt}"></td>
-<!--
                         <td>
                             <div class="row">
                                 <div class="col-md-1 mr-4">
                                     <button class="btn btn-circle btn-sm rounded-circle btn-success">
-                                        <a th:href="@{/sales/edit/{id}(id=${sale.id})}" style="color:white;">
-                                            <i class="fas fa-pen"></i>
+                                        <a th:href="@{/bills/view/{id}(id=${sale.billId})}" style="color:white;">
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                     </button>
                                 </div>
-                                <div class="col-md-2 ml-4">
-                                    &lt;!&ndash;<button class="btn btn-circle btn-sm rounded-circle btn-danger mt-2">
-                                        <a th:href="@{/sales/delete/{id}(id=${sale.id})}" style="color:white;">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </button>&ndash;&gt;
-
-                                </div>
                             </div>
                         </td>
--->
                     </tr>
                     </tbody>
                 </table>

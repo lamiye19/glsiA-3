@@ -117,23 +117,15 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentes"
-                   aria-expanded="true" aria-controls="collapseVentes">
+                <a class="nav-link collapsed" th:href="@{/sales/all}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Ventes</span>
                 </a>
-                <div id="collapseVentes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item disabled" aria-disabled="true" th:href="@{/sales/create}">Nouvelle vente</a>
-                        <a class="collapse-item" th:href="@{/sales/all}">Liste</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" th:href="@{/bills/all}" data-toggle="collapse" data-target="#collapseBill"
-                   aria-expanded="true" aria-controls="collapseBill">
+                <a class="nav-link collapsed" th:href="@{/bills/all}">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Factures</span>
                 </a>

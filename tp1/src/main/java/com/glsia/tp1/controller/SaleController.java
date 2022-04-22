@@ -28,7 +28,7 @@ public class SaleController {
         return "sales/listSale";
     }
 
-    @GetMapping("/create/{id}")
+    /*@GetMapping("/create/{id}")
     public String afficherFormulaire(@PathVariable("id") int id, Model model){
         model.addAttribute("product", productService.selectedProduit(id));
         return "sales/addSale";
@@ -58,5 +58,5 @@ public class SaleController {
     public String deleteSale(@PathVariable("id") int id, Model model){
         saleService.deleteSale(id);
         return "redirect:/sales";
-    }
+    }*/
 }

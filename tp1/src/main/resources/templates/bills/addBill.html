@@ -53,7 +53,7 @@
                             <th>Quantité</th>
                             <th>Prix vente</th>
                             <th>Prix total</th>
-                            <th>Actions</th>
+                            <th>Act</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,27 +66,29 @@
                             <td>
                                 <div class="row">
                                     <div class="col-md-1 mr-4">
-                                        <p class="btn btn-circle btn-sm rounded-circle btn-success" onclick="reloadBill();" th:onclick="${sales.remove(saleStat.index)}">
+                                        <form th:action="@{/bills/remove/{id}(id=${customer.id})}" th:id="'removeSale'+${saleStat.index}" method="post">
+                                            <input type="hidden" name="index" th:value="${saleStat.index}">
+                                            <button class="btn btn-circle btn-sm rounded-circle btn-danger" type="button"
+                                                    th:onclick="|onRemoveBtnClick('${saleStat.index}')|">
                                                 <i class="fas fa-pen"></i>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-2 ml-4">
-                                        <!--<button class="btn btn-circle btn-sm rounded-circle btn-danger mt-2">
-                                            <a th:href="@{/sales/delete/{id}(id=${sale.id})}" style="color:white;">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </button>-->
-
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </td>
+                        </tr>
+                        <tr class="font-weight-bold">
+                            <td class="text-center" colspan="4">TOTAL</td>
+                            <td th:text="${cost}"></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <p>
-                    <button class="btn btn-success btn-user btn-block" type="submit">Facturer</button>
+                    <button class="btn btn-success btn-user btn-block" type="submit" th:if="${#lists.size(sales) > 0}">
+                        Facturer
+                    </button>
                 </p>
             </form>
 
@@ -101,7 +103,8 @@
                     <input type="hidden" th:field="*{productId}" th:value="*{productId}" id="productId">
 
                     <div class="form-group">
-                        <input type="text" readonly class="form-control btn-user btn-block" id="libelle">
+                        <input type="text" readonly class="form-control btn-user btn-block" id="libelle"
+                               >
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -115,10 +118,6 @@
                     </div>
                     <p th:text="${msg}" class="text-danger"></p>
                     <hr>
-
-
-
-
 <!--                    <i class="btn btn-success btn-user btn-block" th:onclick="|onBtnClick('${sales}', '${sale}')|">Ajouter</i>-->
                     <button type="submit" class="btn btn-success btn-user btn-block" onclick="reloadBill();">Ajouter</button>
 <!--                    <i th:text="${sales.add(sale)"></i>-->
@@ -139,13 +138,13 @@
         </div>
 
     </div>
-    <div class="row">
-        <div class="p-5">
-            <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Choisissez un produit</h1>
+    <div class="row card mb-4">
+        <div class="px-5">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold mb-4">Choisissez un produit</h6>
             </div>
-            <div class="table-responsive">
-                <table class="table table-bordered" id="products" width="100%" cellspacing="0" th:if="${#lists.size(produits) > 0}">
+            <div class="card-body table-responsive w-100">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(produits) > 0}">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -154,7 +153,6 @@
                         <th>Quantité seuil</th>
                         <th>Quantité en stock</th>
                         <th>Date création</th>
-                        <th>Catégorie</th>
                         <th>Catégorie</th>
                     </tr>
                     </thead>
@@ -183,10 +181,15 @@
             $( "#Bill" ).load(window.location.href + " #Bill" );
         }
 
+        function onRemoveBtnClick(id){
+            document.getElementById('removeSale'+id).submit()
+        }
+
         function onProdClick(id, libelle, price){
             document.getElementById("productId").value = id;
             document.getElementById("libelle").value = libelle;
             document.getElementById("salePrice").value = price;
+            document.getElementById("qty").focus();
         }
     </script>
 
