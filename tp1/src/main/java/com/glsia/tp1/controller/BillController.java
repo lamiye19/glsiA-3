@@ -3,10 +3,8 @@ package com.glsia.tp1.controller;
 import com.glsia.tp1.models.Bill;
 import com.glsia.tp1.models.Produit;
 import com.glsia.tp1.models.Sale;
-import com.glsia.tp1.service.CustomerService;
-import com.glsia.tp1.service.BillService;
-import com.glsia.tp1.service.ProduitService;
-import com.glsia.tp1.service.SaleService;
+import com.glsia.tp1.models.User;
+import com.glsia.tp1.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +27,9 @@ public class BillController {
 
     @Autowired
     private ProduitService produitService;
+
+    @Autowired
+    private UserPrincipalDetailService userPrincipalDetailService;
 
     List<Sale> sales = new ArrayList<>();
 
@@ -83,6 +84,9 @@ public class BillController {
 
     @PostMapping("/save")
     public String save(Bill bill){
+        User user = userPrincipalDetailService.currentUser;
+
+        bill.setUserId(user.getId());
         billService.saveBill(bill);
         for (Sale value : sales) {
             Sale sale = new Sale();

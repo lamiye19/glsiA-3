@@ -25,10 +25,8 @@ public class Bill {
     private Customer customer;
     private int customerId;
 
-    /***
-     *   @ManyToOne()
-     *     @JoinColumn(name = "userId", insertable = false, updatable = false)
-     *     private User user;
-     *     private int userId;
-     */
+    @ManyToOne()
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    private User user;
+    private int userId;
 }

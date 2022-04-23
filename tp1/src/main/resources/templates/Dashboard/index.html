@@ -31,7 +31,7 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
-                    <a th:href="@{/dashboard}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-download fa-sm text-white-50"></i> Générer un rapport</a>
                 </div>
 
@@ -134,12 +134,12 @@
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
                                 <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                         aria-labelledby="dropdownMenuLink">
+                                         aria-labelledby="dropdownMenuLink1">
                                         <div class="dropdown-header">Dropdown Header:</div>
                                         <a class="dropdown-item" href="#">Action</a>
                                         <a class="dropdown-item" href="#">Another action</a>
@@ -246,7 +246,6 @@
                         </div>
 
                         <!-- Color System -->
-                        <!--
                         <div class="row">
                             <div class="col-lg-6 mb-4">
                                 <div class="card bg-primary text-white shadow">
@@ -313,14 +312,12 @@
                                 </div>
                             </div>
                         </div>
-                        -->
 
                     </div>
 
                     <div class="col-lg-6 mb-4">
 
                         <!-- Illustrations -->
-                        <!--
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
@@ -338,10 +335,8 @@
                                     unDraw &rarr;</a>
                             </div>
                         </div>
-                        -->
 
                         <!-- Approach -->
-                        <!--
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
@@ -354,7 +349,6 @@
                                     Bootstrap framework, especially the utility classes.</p>
                             </div>
                         </div>
-                        -->
 
                     </div>
                 </div>
@@ -362,7 +356,50 @@
             </div>
             <!-- /.container-fluid -->
 
-<th:block th:replace="fragments/nav :: footer"></th:block>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2022</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<th:block th:replace="fragments/logoutModal :: logoutModal"></th:block>
+
+<th:block th:replace="fragments/profileModal :: profileModal"></th:block>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{../../vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{../../vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{../../vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{../../js/sb-admin-2.min.js}"></script>
+
+<!-- Page level plugins -->
+<script th:src="@{../../vendor/chart.js/Chart.min.js}"></script>
+
+<!-- Page level custom scripts -->
+<script th:src="@{../../js/demo/chart-area-demo.js}"></script>
+<script th:src="@{../../js/demo/chart-pie-demo.js}"></script>
 
 </body>
 
