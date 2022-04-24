@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Profil client - Gestion vente</title>
+
+    <th:block th:replace="fragments/metaAndLinks :: metaAndLinks"></th:block>
+
+</head>
+
+<body id="page-top">
+
+<th:block th:replace="fragments/nav :: navigation"></th:block>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h5 class="h5 mb-0 text-gray-800 text-bold">Profil client</h5>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary mb-4">Profil client</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table th:object="${customer}">
+                        <tr>
+                            <td class="font-weight-bold">Nom: </td>
+                            <td th:text="*{lastName}"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Prenom: </td>
+                            <td th:text="*{firstName}"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Téléphone: </td>
+                            <td th:text="*{phone}"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Adresse: </td>
+                            <td th:text="*{address}"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Date d'ajout: </td>
+                            <td th:text="*{createdAt}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+
+</body>
+
+</html>

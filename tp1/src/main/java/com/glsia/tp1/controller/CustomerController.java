@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping("/create")
-    public String AfficherFormulaire(Model model)
+    public String formCreateCustomer(Model model)
     {
         return "customers/addCustomer";
     }
@@ -33,6 +33,13 @@ public class CustomerController {
     {
         customerService.saveCustomer(customer);
         return "redirect:/customers/all";
+    }
+
+    @GetMapping("/view/{id}")
+    public String customerProfile(@PathVariable("id") int id, Model model)
+    {
+        model.addAttribute("customer", customerService.selectedCustomer(id));
+        return "customers/viewCustomer";
     }
 
     @GetMapping("/edit/{id}")

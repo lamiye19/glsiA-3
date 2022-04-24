@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "bills")
@@ -29,4 +30,7 @@ public class Bill {
     @JoinColumn(name = "userId", insertable = false, updatable = false)
     private User user;
     private int userId;
+
+    @OneToMany(mappedBy = "bill")
+    private List<Sale> sales;
 }

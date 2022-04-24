@@ -63,6 +63,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Libellé</th>
+                        <th>Nbr Prod</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -70,6 +71,7 @@
                     <tr th:each="categorie : ${categories}">
                         <td th:text="${categorie.id}"></td>
                         <td th:text="${categorie.designation}"></td>
+                        <td th:text="${#lists.size(categorie.produits)}"></td>
                         <td>
                             <div class="row">
                                 <div class="col-md-1 mr-4">

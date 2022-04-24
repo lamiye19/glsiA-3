@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+
+
+    <title>Profil du vendeur - Gestion vente</title>
+
+
+</head>
+
+<body id="page-top">
+
+<th:block th:replace="fragments/nav :: navigation"></th:block>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h5 class="h5 mb-0 text-gray-800 text-bold">Profil du vendeur</h5>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary mb-4">Profil du vendeur</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table th:object="${user}">
+                        <tr>
+                            <td class="font-weight-bold">Nom: </td>
+                            <td th:text="*{nom}"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Prenom: </td>
+                            <td th:text="*{prenom}"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Role: </td>
+                            <td th:text="*{role}"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Statut: </td>
+                            <td>
+                                <i class="fas fa-toggle-on text-success" th:if="*{active}"></i>
+                                <i class="fas fa-toggle-off text-danger" th:if="*{blocked}"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+
+</body>
+
+</html>

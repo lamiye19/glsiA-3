@@ -37,6 +37,9 @@ public class User {
     @NotNull
     private String permission = "";
 
+    @OneToMany(mappedBy = "user")
+    private List<Bill> bills;
+
 
 
     public User(String username, String password, String nom, String prenom, String role, String permission){

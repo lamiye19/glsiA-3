@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("Users")
@@ -57,5 +54,18 @@ public class UserController {
         return "redirect:/forgetpassword?error";
     }
 
+    @GetMapping("/profile")
+    public String userProfile(Model model)
+    {
+        model.addAttribute("user", userPrincipalDetailService.getCurrentUser());
+        return "users/userProfile";
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewUser(@PathVariable("id") String username, Model model)
+    {
+        model.addAttribute("user", userPrincipalDetailService.getUserByUsername(username));
+        return "users/viewUser";
+    }
 
 }

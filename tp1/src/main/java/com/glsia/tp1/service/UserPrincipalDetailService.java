@@ -16,7 +16,7 @@ public class UserPrincipalDetailService implements UserDetailsService {
 
     private UserRepository userRepository;
 
-    public User currentUser;
+    private User currentUser;
 
     public UserPrincipalDetailService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -26,9 +26,14 @@ public class UserPrincipalDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.userRepository.findByUsername(username);
         UserPrincipal userPrincipal = new UserPrincipal(user);
-        currentUser = user;
+        this.currentUser = user;
 
         return userPrincipal;
+    }
+
+    public User getCurrentUser() {
+
+        return this.currentUser;
     }
 
 

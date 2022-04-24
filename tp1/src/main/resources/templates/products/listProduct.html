@@ -57,8 +57,8 @@
             <h6 class="m-0 font-weight-bold text-primary mb-4">Liste des produits</h6>
         </div>
         <div class="card-body">
-            <div class="table-responsive" th:fragment="listProduct">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(produits) > 0}">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle" id="dataTable" width="100%" cellspacing="0" th:if="${#lists.size(produits) > 0}">
                     <thead>
                     <tr>
                         <th>Id</th>

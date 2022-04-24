@@ -84,7 +84,7 @@ public class BillController {
 
     @PostMapping("/save")
     public String save(Bill bill){
-        User user = userPrincipalDetailService.currentUser;
+        User user = userPrincipalDetailService.getCurrentUser();
 
         bill.setUserId(user.getId());
         billService.saveBill(bill);
@@ -114,7 +114,7 @@ public class BillController {
 
         model.addAttribute("sales", sales);
         model.addAttribute("cost", cost);
-        model.addAttribute("customer", bill.getCustomer());
+        model.addAttribute("bill", bill);
         return "/bills/viewBill";
     }
 

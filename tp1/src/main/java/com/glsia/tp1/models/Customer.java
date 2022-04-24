@@ -35,12 +35,8 @@ public class Customer {
 
     private LocalDate updatedAt = LocalDate.now();
 
-    /***
-     *  Un client peut faire plusieurs achats(vente)
-     */
-
-    /*@OneToMany(mappedBy = "customer")
-    private List<Sale> sales;*/
+    @OneToMany(mappedBy = "customer")
+    private List<Bill> bills;
 
 
 }

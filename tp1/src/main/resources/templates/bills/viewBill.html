@@ -42,14 +42,14 @@
             <div class="row d-flex justify-content-between">
                 <div class="col-12 col-md-6">
                     <p>
-                        <b><u>Client</u> :</b> <span th:text="${customer.lastName}+ ' ' + ${customer.firstName}"></span>
+                        <b><u>Client</u> :</b> <span th:text="${bill.customer.lastName}+ ' ' + ${bill.customer.firstName}"></span>
                     </p>
                     <p>
-                        <b><u>Vendeur</u> :</b> <span th:text="' '"></span>
+                        <b><u>Vendeur</u> :</b> <span th:text="${bill.user.nom}+ ' ' + ${bill.user.prenom}"></span>
                     </p>
                 </div>
                 <div class="col-12 col-md-6">
-                    <b><u>Date</u> :</b> <span th:text="${sales[0].bill.createdAt}"></span>
+                    <b><u>Date</u> :</b> <span th:text="${bill.createdAt}"></span>
                 </div>
             </div>
         </div>
